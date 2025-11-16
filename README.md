@@ -74,6 +74,19 @@ If you want to build Float Browser yourself:
 
 **Note**: Float Browser v2.0 is designed specifically for macOS and includes window management features that leverage macOS APIs.
 
+## Documentation
+
+Float Browser includes comprehensive documentation for users and developers:
+
+- **[Documentation Index](DOCUMENTATION_INDEX.md)** - Complete documentation navigation
+- **[User Guide](docs/user/USER_GUIDE.md)** - How to use Float Browser features
+- **[Keyboard Shortcuts](docs/user/SHORTCUTS.md)** - Complete shortcuts reference
+- **[Troubleshooting](docs/user/TROUBLESHOOTING.md)** - Common issues and solutions
+- **[Build Guide](docs/developer/BUILD_GUIDE.md)** - Building Float Browser from source
+- **[Architecture](docs/developer/ARCHITECTURE.md)** - System design and architecture
+
+For complete documentation, see the [Documentation Index](DOCUMENTATION_INDEX.md).
+
 ## Float Browser Shortcuts
 
 Float Browser includes these global keyboard shortcuts:
@@ -97,7 +110,7 @@ If you want to develop Float Browser:
 - Run `npm install` to install dependencies.
 - Start Float Browser in development mode by running `npm run start`.
 - After you make changes, press `opt+cmd+r` to reload the browser UI.
-- See `FLOAT_MODIFICATIONS.md` for details on Float-specific code and integration points.
+- See [docs/developer/MODIFICATIONS.md](docs/developer/MODIFICATIONS.md) for details on Float-specific code and integration points.
 
 ### Testing
 
@@ -111,7 +124,7 @@ npm run testSigning
 npm run testNotarization
 ```
 
-For detailed information on code signing and notarization, see [CODE_SIGNING_GUIDE.md](CODE_SIGNING_GUIDE.md).
+For detailed information on code signing and notarization, see [Code Signing Guide](docs/developer/CODE_SIGNING_GUIDE.md).
 
 ### Building binaries
 
@@ -138,7 +151,7 @@ If you're experiencing a bug or have a suggestion for Float Browser, please open
 ### Contributing Code
 
 - Start by following the development instructions listed above.
-- Review `FLOAT_MODIFICATIONS.md` to understand Float-specific code organization.
+- Review [docs/developer/MODIFICATIONS.md](docs/developer/MODIFICATIONS.md) to understand Float-specific code organization.
 - See the [Min Browser architecture overview](https://github.com/minbrowser/min/wiki/Architecture) for the underlying browser architecture.
 - Float Browser uses the [Standard](https://github.com/feross/standard) code style; [most editors](https://standardjs.com/#are-there-text-editor-plugins) have plugins available to auto-format your code.
 

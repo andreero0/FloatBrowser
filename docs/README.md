@@ -2,9 +2,11 @@
 
 Welcome to the Float Browser documentation! This directory contains comprehensive guides to help you get the most out of Float Browser.
 
+**For complete documentation navigation, see the [Documentation Index](../DOCUMENTATION_INDEX.md).**
+
 ## User Documentation
 
-### [User Guide](USER_GUIDE.md)
+### [User Guide](user/USER_GUIDE.md)
 Complete guide to using Float Browser's features:
 - Window transparency control
 - Always-on-top mode
@@ -14,7 +16,7 @@ Complete guide to using Float Browser's features:
 - Settings configuration
 - Tips and tricks
 
-### [Keyboard Shortcuts Reference](SHORTCUTS.md)
+### [Keyboard Shortcuts Reference](user/SHORTCUTS.md)
 Complete keyboard shortcuts for Float Browser:
 - Float Browser shortcuts (global)
 - Window management shortcuts
@@ -22,7 +24,7 @@ Complete keyboard shortcuts for Float Browser:
 - Quick reference card
 - Customization guide
 
-### [Troubleshooting Guide](TROUBLESHOOTING.md)
+### [Troubleshooting Guide](user/TROUBLESHOOTING.md)
 Solutions to common issues:
 - Installation problems
 - Window management issues
@@ -71,17 +73,32 @@ Solutions to common issues:
 
 ## Getting Help
 
-- **Troubleshooting**: See [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
-- **Shortcuts**: See [SHORTCUTS.md](SHORTCUTS.md)
+- **Troubleshooting**: See [TROUBLESHOOTING.md](user/TROUBLESHOOTING.md)
+- **Shortcuts**: See [SHORTCUTS.md](user/SHORTCUTS.md)
 - **Min Browser Features**: [Min Browser Wiki](https://github.com/minbrowser/min/wiki)
 - **Report Issues**: [GitHub Issues](https://github.com/yourusername/float-browser-min/issues)
 
 ## Developer Documentation
 
 For developers working on Float Browser:
-- [FLOAT_MODIFICATIONS.md](../FLOAT_MODIFICATIONS.md) - Float-specific code changes
-- [Architecture Overview](.kiro/specs/float-browser-v2/design.md) - System design
-- [Requirements](.kiro/specs/float-browser-v2/requirements.md) - Feature requirements
+- [Developer Docs Index](developer/README.md) - Complete developer documentation
+- [Architecture](developer/ARCHITECTURE.md) - System design and architecture
+- [Build Guide](developer/BUILD_GUIDE.md) - Building for all platforms
+- [Code Signing](developer/CODE_SIGNING_GUIDE.md) - Signing and notarization
+
+## Testing Documentation
+
+For testing Float Browser:
+- [Testing Docs Index](testing/README.md) - Complete testing documentation
+- [Manual Testing Guide](testing/MANUAL_TESTING_GUIDE.md) - Testing procedures
+- [Test Plans](testing/COMPREHENSIVE_TEST_PLAN.md) - Comprehensive test coverage
+
+## Release Documentation
+
+For releasing Float Browser:
+- [Release Docs Index](release/README.md) - Complete release documentation
+- [Release Checklist](release/RELEASE_CHECKLIST.md) - Pre-release checklist
+- [Notarization Setup](release/NOTARIZATION_SETUP.md) - Apple notarization
 
 ## About Float Browser
 
@@ -105,4 +122,4 @@ Float Browser is licensed under Apache-2.0, the same license as Min Browser.
 
 ---
 
-**Need more help?** Check the [Troubleshooting Guide](TROUBLESHOOTING.md) or open an issue on GitHub.
+**Need more help?** Check the [Troubleshooting Guide](user/TROUBLESHOOTING.md) or the [Documentation Index](../DOCUMENTATION_INDEX.md).

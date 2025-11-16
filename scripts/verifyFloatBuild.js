@@ -141,9 +141,9 @@ function main () {
 
   // Check documentation
   log('\nChecking documentation...', 'yellow')
-  allPassed &= checkFile('MANUAL_TESTING_GUIDE.md', 'Manual testing guide')
-  allPassed &= checkFile('MANUAL_TESTING_CHECKLIST.md', 'Manual testing checklist')
-  allPassed &= checkFile('FLOAT_MODIFICATIONS.md', 'Float modifications documentation')
+  allPassed &= checkFile('docs/testing/MANUAL_TESTING_GUIDE.md', 'Manual testing guide')
+  allPassed &= checkFile('docs/testing/MANUAL_TESTING_CHECKLIST.md', 'Manual testing checklist')
+  allPassed &= checkFile('docs/developer/MODIFICATIONS.md', 'Float modifications documentation')
 
   // Summary
   log('\n=== Verification Summary ===\n', 'blue')
@@ -151,8 +151,8 @@ function main () {
     log('✓ All checks passed! Float Browser is ready for manual testing.', 'green')
     log('\nNext steps:', 'yellow')
     log('1. Start the application: npm run start')
-    log('2. Follow the manual testing guide: MANUAL_TESTING_GUIDE.md')
-    log('3. Use the checklist: MANUAL_TESTING_CHECKLIST.md')
+    log('2. Follow the manual testing guide: docs/testing/MANUAL_TESTING_GUIDE.md')
+    log('3. Use the checklist: docs/testing/MANUAL_TESTING_CHECKLIST.md')
     process.exit(0)
   } else {
     log('✗ Some checks failed. Please review the errors above.', 'red')

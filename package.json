@@ -65,6 +65,7 @@
   "scripts": {
     "postinstall": "node ./scripts/setupDevEnv.js",
     "test": "standard --verbose js/**/*.js main/*.js",
+    "validate-docs": "node ./scripts/validateDocs.js",
     "testSigning": "node ./scripts/testSigning.js",
     "testNotarization": "node ./scripts/testNotarization.js",
     "watch": "node ./scripts/watch.js",
