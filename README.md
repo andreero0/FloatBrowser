@@ -1,6 +1,18 @@
-# Min
+# Float Browser
 
-Min is a fast, minimal browser that protects your privacy. It includes an interface designed to minimize distractions, and features such as:
+Float Browser is a transparent, always-on-top web browser for macOS that combines the professional UI and features of Min Browser with unique window management capabilities. Keep web content visible and accessible while working in other applications.
+
+## Float Features
+
+- **Window Transparency**: Adjust opacity from 30% to 100% with a convenient slider
+- **Always-On-Top**: Keep the browser above all other applications across all spaces
+- **Picture-in-Picture Mode**: Compact window mode for minimal screen footprint
+- **Window Profiles**: Save and quickly switch between window size presets
+- **Global Shortcuts**: Control the browser from any application with system-wide keyboard shortcuts
+
+## Min Browser Features (Included)
+
+Float Browser is built on Min Browser and includes all its excellent features:
 
 - Full-text search for visited pages
 - Ad and tracker blocking
@@ -10,20 +22,20 @@ Min is a fast, minimal browser that protects your privacy. It includes an interf
 - Password manager integration
 - Dark theme
 
-Download Min from the [releases page](https://github.com/minbrowser/min/releases), or learn more on the [website](https://minbrowser.org/).
+## Based on Min Browser
 
-[![Downloads][DownloadsBadge]][DownloadsUrl]
-[![Discord][DiscordBadge]][DiscordUrl]
+Float Browser v2.0.0 is based on [Min Browser v1.35.2](https://github.com/minbrowser/min). All credit for the core browser functionality goes to the Min Browser team and contributors.
 
-Min is made possible by these sponsors:
+## Support Min Browser
 
-| [<img src="https://avatars.githubusercontent.com/u/6592155?v=4" width="40">](https://github.com/blackgwe) | [<img src="https://avatars.githubusercontent.com/u/49724477?v=4" width="40">](https://github.com/rafel-ioli) |[<img src="https://avatars.githubusercontent.com/u/237596?v=4" width="40">](https://github.com/idoru) |     |
-| ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |--------------------------------------------------------------------------------------------------------------- | --- |
-| [@blackgwe](https://github.com/blackgwe)                                                                            | [@rafel-ioli](https://github.com/rafel-ioli)                                                                        |[@idoru](https://github.com/idoru)                                                                        ||
+Float Browser is built on the excellent foundation of Min Browser. Please consider supporting the original Min Browser project:
 
-[Become a sponsor](https://github.com/sponsors/PalmerAL)
+- [Min Browser on GitHub](https://github.com/minbrowser/min)
+- [Become a Min Browser sponsor](https://github.com/sponsors/PalmerAL)
 
 ## Screenshots
+
+Float Browser includes all Min Browser features with added window management capabilities.
 
 <img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.org/tour/img/searchbar_duckduckgo_answers.png" width="650"/>
 
@@ -33,83 +45,111 @@ Min is made possible by these sponsors:
 
 ## Installing
 
-You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/releases). Alternatively, skip to the section below for instructions on how to build Min directly from source.
+### System Requirements
 
-### Installation on Linux
+- **macOS 10.13 (High Sierra) or later**
+- Intel x64 or Apple Silicon (ARM64) processor
+- 200 MB disk space
 
-- To install the .deb file, use `sudo dpkg -i /path/to/download`
-- To install the RPM build, use `sudo rpm -i /path/to/download --ignoreos`
-- On Arch Linux install from [AUR](https://aur.archlinux.org/packages/min-browser-bin).
-- On Raspberry Pi, you can install Min from [Pi-Apps](https://github.com/Botspot/pi-apps).
+### Installation from DMG (Recommended)
+
+1. Download the latest Float Browser DMG from the releases page
+2. Open the DMG file
+3. Drag Float Browser to your Applications folder
+4. Launch Float Browser from Applications
+5. If prompted by macOS security, go to System Preferences → Security & Privacy and click "Open Anyway"
+
+### Building from Source
+
+If you want to build Float Browser yourself:
+
+1. Install [Node.js](https://nodejs.org) (v16 or later recommended)
+2. Clone this repository: `git clone https://github.com/yourusername/float-browser-min.git`
+3. Navigate to the directory: `cd float-browser-min`
+4. Install dependencies: `npm install`
+5. Build for your platform:
+   - Intel Macs: `npm run buildMacIntel`
+   - Apple Silicon Macs: `npm run buildMacArm`
+6. The built application will be in the `dist/` directory
+
+**Note**: Float Browser v2.0 is designed specifically for macOS and includes window management features that leverage macOS APIs.
+
+## Float Browser Shortcuts
+
+Float Browser includes these global keyboard shortcuts:
+
+- `Cmd+Shift+F` - Toggle window visibility
+- `Cmd+Shift+A` - Toggle always-on-top
+- `Cmd+Shift+P` - Toggle Picture-in-Picture mode
+- `Cmd+1/2/3` - Apply window profiles (Small/Medium/Large)
 
 ## Getting Started
 
-* The [wiki](https://github.com/minbrowser/min/wiki) provides an overview of the the features available in Min, a list of available keyboard shortcuts, and answers to some [frequently asked questions](https://github.com/minbrowser/min/wiki/FAQ).
-* Min supports installing userscripts to extend its functionality. See the [userscript documentation](https://github.com/minbrowser/min/wiki/userscripts) for instructions on writing userscripts, as well as a collection of scripts written by the community.
-* If you have questions about using Min, need help getting started with development, or want to talk about what we're working on, join our [Discord server](https://discord.gg/bRpqjJ4).
+* Float Browser includes all Min Browser features. See the [Min Browser wiki](https://github.com/minbrowser/min/wiki) for an overview of available features and keyboard shortcuts.
+* Float Browser supports userscripts. See the [Min userscript documentation](https://github.com/minbrowser/min/wiki/userscripts) for instructions.
+* For Min Browser support, join the [Min Discord server](https://discord.gg/bRpqjJ4).
 
 ## Developing
 
-If you want to develop Min:
+If you want to develop Float Browser:
 
 - Install [Node](https://nodejs.org).
 - Run `npm install` to install dependencies.
-- Start Min in development mode by running `npm run start`.
-- After you make changes, press `alt+ctrl+r` (or `opt+cmd+r` on Mac) to reload the browser UI.
+- Start Float Browser in development mode by running `npm run start`.
+- After you make changes, press `opt+cmd+r` to reload the browser UI.
+- See `FLOAT_MODIFICATIONS.md` for details on Float-specific code and integration points.
+
+### Testing
+
+Float Browser includes test scripts for verifying code signing and notarization:
+
+```bash
+# Test code signing configuration
+npm run testSigning
+
+# Test notarization configuration
+npm run testNotarization
+```
+
+For detailed information on code signing and notarization, see [CODE_SIGNING_GUIDE.md](CODE_SIGNING_GUIDE.md).
 
 ### Building binaries
 
-In order to build Min from source, follow the installation instructions above, then use one of the following commands to create binaries:
+Float Browser is designed for macOS. To build from source:
 
-- `npm run buildWindows`
-- `npm run buildMacIntel`
-- `npm run buildMacArm`
-- `npm run buildDebian`
-- `npm run buildRaspi` (for 32-bit Raspberry Pi)
-- `npm run buildLinuxArm64` (for 64-bit Raspberry Pi or other ARM Linux)
-- `npm run buildRedhat`
+- `npm run buildMacIntel` - Build for Intel Macs
+- `npm run buildMacArm` - Build for Apple Silicon Macs
 
-Depending on the platform you are building for, you may need to install additional dependencies:
+**Requirements for macOS builds**:
+- Install Xcode and command-line tools
+- You may need to set your default SDK to macOS 11.0 or higher: `export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk`
+- The exact command depends on your Xcode installation and SDK version
 
-- If you are building a macOS package, you'll need to install Xcode and the associated command-line tools. You may also need to set your default SDK to macOS 11.0 or higher, which you can do by running `export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk`. The exact command will depend on where Xcode is installed and which SDK version you're using.
-- To build on Windows, you'll need to install Visual Studio. Once it's installed, you may also need to run `npm config set msvs_version 2019` (or the appropriate version).
+**Note**: While the underlying Min Browser supports Windows and Linux, Float Browser's window management features are currently macOS-specific.
 
-## Contributing to Min
+## Contributing to Float Browser
 
-Thanks for taking the time to contribute to Min!
+Thanks for your interest in Float Browser!
 
 ### Getting Help
 
-If you're experiencing a bug or have a suggestion for how to improve Min, please open a [new issue](https://github.com/minbrowser/min/issues/new/choose).
+If you're experiencing a bug or have a suggestion for Float Browser, please open an issue.
 
 ### Contributing Code
 
 - Start by following the development instructions listed above.
-- The wiki has an [overview of Min's architecture](https://github.com/minbrowser/min/wiki/Architecture).
-- Min uses the [Standard](https://github.com/feross/standard) code style; [most editors](https://standardjs.com/#are-there-text-editor-plugins) have plugins available to auto-format your code.
-- If you see something that's missing, or run into any problems, please open an issue!
+- Review `FLOAT_MODIFICATIONS.md` to understand Float-specific code organization.
+- See the [Min Browser architecture overview](https://github.com/minbrowser/min/wiki/Architecture) for the underlying browser architecture.
+- Float Browser uses the [Standard](https://github.com/feross/standard) code style; [most editors](https://standardjs.com/#are-there-text-editor-plugins) have plugins available to auto-format your code.
 
-### Contributing Translations
+### Contributing to Min Browser
 
-#### Adding a new language
+For contributions to the underlying Min Browser features, please contribute directly to the [Min Browser project](https://github.com/minbrowser/min).
 
-- Find the language code that goes with your language from [this list](https://source.chromium.org/chromium/chromium/src/+/main:ui/base/l10n/l10n_util.cc;l=68-259) (line 68 - 259).
-- In the `localization/languages` directory, create a new file, and name it "[your language code].json".
-- Open your new file, and copy the contents of the <a href="https://github.com/minbrowser/min/blob/master/localization/languages/en-US.json">localization/languages/en-US.json</a> file into your new file.
-- Change the "identifier" field in the new file to the language code from step 1.
-- Inside the file, replace each English string in the right-hand column with the equivalent translation.
-- (Optional) See your translations live by following the [development instructions](#installing) above. Min will display in the same language as your operating system, so make sure your computer is set to the same language that you're translating.
-- That's it! Make a pull request with your changes.
+## License
 
-#### Updating an existing language
+Float Browser is licensed under Apache-2.0, the same license as Min Browser.
 
-- Find the language file for your language in the `localization/languages` directory.
-- Look through the file for any items that have a value of "null", or that have a comment saying "missing translation".
-- For each of these items, look for the item with the same name in the `en-US.json` file.
-- Translate the value from the English file, replace "null" with your translation, and remove the "missing translation" comment.
-- Make a pull request with the updated file.
+## Acknowledgments
 
-[DiscordBadge]: https://img.shields.io/discord/764269005195968512.svg?label=Discord&logo=discord&logoColor=white
-[DiscordUrl]: https://discord.gg/bRpqjJ4
-[DownloadsBadge]: https://img.shields.io/github/downloads/minbrowser/min/total.svg
-[DownloadsUrl]: https://github.com/minbrowser/min/releases
+Float Browser is built on [Min Browser](https://github.com/minbrowser/min) by PalmerAL and contributors. All core browser functionality is provided by the Min Browser project.

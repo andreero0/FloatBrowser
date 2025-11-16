@@ -1,0 +1,364 @@
+body {
+  background-color: #f5f5f5;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+body.dark-mode {
+  background-color: rgb(33, 37, 43);
+}
+
+#welcome-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2em 1em 4em;
+}
+
+.welcome-header {
+  text-align: center;
+  padding: 2em 0 1em;
+}
+
+.welcome-header h1 {
+  font-size: 3em;
+  font-family: ".SFNSDisplay-Light", "Helvetica Neue", "Arial", sans-serif;
+  font-weight: 300;
+  margin: 0 0 0.25em;
+  color: #333;
+}
+
+body.dark-mode .welcome-header h1 {
+  color: #fff;
+}
+
+.welcome-subtitle {
+  font-size: 1.3em;
+  color: #666;
+  margin: 0;
+}
+
+body.dark-mode .welcome-subtitle {
+  color: #aaa;
+}
+
+.welcome-content {
+  margin-top: 2em;
+}
+
+.feature-section {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+body.dark-mode .feature-section {
+  background: rgb(42, 46, 52);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.feature-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+body.dark-mode .feature-section:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.feature-icon {
+  font-size: 2.5em;
+  margin-bottom: 0.25em;
+}
+
+.feature-section h2 {
+  font-size: 1.5em;
+  margin: 0.25em 0 0.5em;
+  color: #333;
+}
+
+body.dark-mode .feature-section h2 {
+  color: #fff;
+}
+
+.feature-section p {
+  margin: 0 0 0.75em;
+  line-height: 1.6;
+  color: #555;
+}
+
+body.dark-mode .feature-section p {
+  color: #bbb;
+}
+
+.shortcut-hint {
+  background: #f8f9fa;
+  padding: 0.5em 0.75em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #666;
+  border-left: 3px solid #507ac4;
+}
+
+body.dark-mode .shortcut-hint {
+  background: rgb(33, 37, 43);
+  color: #aaa;
+  border-left-color: #80c0e2;
+}
+
+.shortcut-hint strong {
+  color: #333;
+}
+
+body.dark-mode .shortcut-hint strong {
+  color: #fff;
+}
+
+kbd {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  font-size: 0.9em;
+  font-family: "SF Mono", "Monaco", "Menlo", monospace;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+body.dark-mode kbd {
+  background: rgb(52, 56, 62);
+  border-color: rgb(62, 66, 72);
+  color: #ddd;
+}
+
+.shortcuts-section {
+  background: linear-gradient(135deg, #507ac4 0%, #80c0e2 100%);
+  border-radius: 8px;
+  padding: 2em;
+  margin: 2em 0;
+  color: white;
+}
+
+.shortcuts-section h2 {
+  margin-top: 0;
+  color: white;
+  font-size: 1.8em;
+}
+
+.shortcuts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1em;
+  margin-top: 1.5em;
+}
+
+.shortcut-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 1em;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+}
+
+.shortcut-item kbd {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #333;
+  font-weight: 500;
+}
+
+.shortcut-item span {
+  font-size: 0.95em;
+  opacity: 0.95;
+}
+
+.info-section {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5em;
+  margin: 1.5em 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+body.dark-mode .info-section {
+  background: rgb(42, 46, 52);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.info-section h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+body.dark-mode .info-section h2 {
+  color: #fff;
+}
+
+.info-section p {
+  margin: 0.5em 0 0;
+  line-height: 1.6;
+  color: #555;
+}
+
+body.dark-mode .info-section p {
+  color: #bbb;
+}
+
+.info-section a {
+  color: #507ac4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.info-section a:hover {
+  text-decoration: underline;
+}
+
+body.dark-mode .info-section a {
+  color: #80c0e2;
+}
+
+.resources-section {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5em;
+  margin: 1.5em 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .resources-section {
+  background: rgb(42, 46, 52);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.resources-section h2 {
+  margin-top: 0;
+  text-align: center;
+  color: #333;
+}
+
+body.dark-mode .resources-section h2 {
+  color: #fff;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1em;
+  margin-top: 1.5em;
+}
+
+.resource-link {
+  display: block;
+  padding: 1em;
+  background: #f8f9fa;
+  border-radius: 6px;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.2s;
+}
+
+body.dark-mode .resource-link {
+  background: rgb(33, 37, 43);
+  color: #ddd;
+}
+
+.resource-link:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+}
+
+body.dark-mode .resource-link:hover {
+  background: rgb(52, 56, 62);
+}
+
+.welcome-footer {
+  margin-top: 3em;
+  padding: 1.5em;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.dark-mode .welcome-footer {
+  background: rgb(42, 46, 52);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-container input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.checkbox-container span {
+  color: #666;
+}
+
+body.dark-mode .checkbox-container span {
+  color: #aaa;
+}
+
+#get-started-button {
+  background: #507ac4;
+  color: white;
+  padding: 0.75em 2em;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+#get-started-button:hover {
+  background: #4069b0;
+  transform: translateY(-1px);
+}
+
+#get-started-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .welcome-header h1 {
+    font-size: 2.2em;
+  }
+
+  .welcome-subtitle {
+    font-size: 1.1em;
+  }
+
+  .shortcuts-grid,
+  .resources-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-footer {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  #get-started-button {
+    width: 100%;
+  }
+}

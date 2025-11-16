@@ -299,9 +299,9 @@ function buildAppMenu (options = {}) {
               windows.getAll().forEach(win => sendIPCToWindow(win, 'enterFocusMode'))
 
               // wait to show the message until the tabs have been hidden, to make the message less confusing
-              setTimeout(function() {
+              setTimeout(function () {
                 showFocusModeDialog1()
-              }, 16);
+              }, 16)
             }
           }
         },
@@ -314,6 +314,22 @@ function buildAppMenu (options = {}) {
         }
       ]
     },
+    // Float menu integration
+    (function () {
+      try {
+        // FloatMenu module is concatenated in the build, so it's available globally
+        if (typeof createFloatMenuTemplate === 'function') {
+          return createFloatMenuTemplate({
+            window: windows.getCurrent(),
+            sendIPCToWindow: sendIPCToWindow
+          })
+        }
+        return null
+      } catch (error) {
+        console.error('Failed to create Float menu:', error)
+        return null
+      }
+    })(),
     {
       label: l('appMenuDeveloper'),
       submenu: [
@@ -335,8 +351,8 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'inspectPage')
           }
         },
-        ...(isDevelopmentMode || isDebuggingEnabled ?
-          [
+        ...(isDevelopmentMode || isDebuggingEnabled
+          ? [
             {
               type: 'separator'
             },
@@ -399,7 +415,7 @@ function buildAppMenu (options = {}) {
             type: 'checkbox',
             checked: settings.get('windowAlwaysOnTop') || false,
             click: function (item, window) {
-              windows.getAll().forEach(function(win) {
+              windows.getAll().forEach(function (win) {
                 win.setAlwaysOnTop(item.checked)
               })
               settings.set('windowAlwaysOnTop', item.checked)
@@ -463,7 +479,7 @@ function buildAppMenu (options = {}) {
     },
     ...(options.secondary && process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
     ...(options.secondary && process.platform !== 'darwin' ? [quitAction] : [])
-  ]
+  ].filter(item => item !== null) // Filter out null items (e.g., if Float menu fails to load)
   return Menu.buildFromTemplate(template)
 }
 

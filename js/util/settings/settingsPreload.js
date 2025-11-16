@@ -10,6 +10,15 @@ window.addEventListener('message', function (e) {
   if (e.data && e.data.message && e.data.message === 'setSetting') {
     ipc.send('setSetting', { key: e.data.key, value: e.data.value })
   }
+
+  // Float settings dialog handlers
+  if (e.data && e.data.message && e.data.message === 'openFloatShortcutsDialog') {
+    ipc.invoke('openFloatShortcutsDialog')
+  }
+
+  if (e.data && e.data.message && e.data.message === 'openFloatProfilesDialog') {
+    ipc.invoke('openFloatProfilesDialog')
+  }
 })
 
 ipc.on('receiveSettingsData', function (e, data) {

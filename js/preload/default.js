@@ -58,6 +58,14 @@ window.addEventListener('message', function (e) {
     ipc.send('showUserscriptDirectory')
   }
 
+  if (e.data?.message === 'openFloatShortcutsDialog') {
+    ipc.send('openFloatShortcutsDialog')
+  }
+
+  if (e.data?.message === 'openFloatProfilesDialog') {
+    ipc.send('openFloatProfilesDialog')
+  }
+
   if (e.data?.message === 'downloadFile') {
     ipc.send('downloadFile', e.data.url)
   }

@@ -1,0 +1,388 @@
+/**
+ * Float Controls CSS
+ * 
+ * Styles for Float Browser controls integrated into Min's navbar.
+ * Matches Min's visual design language and interaction patterns.
+ * 
+ * Requirements: 7.4, 7.5
+ */
+
+/* Float Controls Container - tightly packed */
+#float-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* Tight spacing between controls */
+  margin-right: 0.25rem; /* Small margin to + button */
+  /* Prevent this area from being draggable */
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+
+/* Add a draggable spacer before the Float controls */
+#float-controls::before {
+  content: "";
+  display: block;
+  width: 100px; /* Fixed draggable space */
+  height: 100%;
+  margin-right: 0.5rem;
+  /* This spacer IS draggable */
+  -webkit-app-region: drag;
+  app-region: drag;
+  cursor: move;
+}
+
+/* Opacity Control Container - compact */
+.float-opacity-control {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem; /* Very tight spacing */
+}
+
+/* Opacity Slider - slim track with circular thumb */
+#float-opacity-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 50px;
+  height: 2px; /* Very thin track - just a line */
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1px;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#float-opacity-slider:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#float-opacity-slider:focus {
+  outline: 2px solid rgb(0, 117, 255);
+  outline-offset: 2px;
+}
+
+/* Dark mode slider track */
+.dark-mode #float-opacity-slider {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.dark-mode #float-opacity-slider:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.dark-mode #float-opacity-slider:focus {
+  outline-color: transparent;
+}
+
+/* Slider thumb - WebKit - smaller for compact design */
+#float-opacity-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px; /* Smaller thumb */
+  height: 12px;
+  background: #000;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+#float-opacity-slider:hover::-webkit-slider-thumb {
+  width: 14px; /* Slightly larger on hover */
+  height: 14px;
+}
+
+#float-opacity-slider:active::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+}
+
+.dark-mode #float-opacity-slider::-webkit-slider-thumb {
+  background: lightgrey;
+}
+
+/* Slider thumb - Firefox - smaller to match WebKit */
+#float-opacity-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #000;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+#float-opacity-slider:hover::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+}
+
+#float-opacity-slider:active::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+}
+
+.dark-mode #float-opacity-slider::-moz-range-thumb {
+  background: lightgrey;
+}
+
+/* Opacity Label */
+.float-opacity-label {
+  font-size: 13px;
+  min-width: 40px;
+  opacity: 0.8;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Float Action Buttons - matching Min's navbar-action-button style */
+#float-always-on-top-button,
+#float-pip-button {
+  padding: 0 1rem;
+  height: 36px;
+  margin-top: -0.5px;
+  font-size: 1.4em !important;
+  opacity: 0.6;
+  transition: opacity 0.15s, background-color 0.15s, color 0.15s, transform 0.1s;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Default hover state - subtle opacity increase */
+#float-always-on-top-button:hover,
+#float-pip-button:hover {
+  opacity: 0.8;
+}
+
+/* Button hover states - matching Min's pattern for Windows */
+body.windows #float-always-on-top-button:hover,
+body.windows #float-pip-button:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+  opacity: 1;
+}
+
+body.windows.dark-theme #float-always-on-top-button:hover,
+body.windows.dark-theme #float-pip-button:hover {
+  background: rgba(255, 255, 255, 0.075);
+}
+
+/* Active/pressed state - visual feedback on click */
+#float-always-on-top-button:active,
+#float-pip-button:active {
+  transform: scale(0.95);
+  opacity: 1;
+}
+
+body.windows #float-always-on-top-button:active,
+body.windows #float-pip-button:active {
+  background-color: rgba(0, 0, 0, 0.125);
+}
+
+body.windows.dark-theme #float-always-on-top-button:active,
+body.windows.dark-theme #float-pip-button:active {
+  background: rgba(255, 255, 255, 0.125);
+}
+
+/* Enabled/active state for buttons (when feature is on) */
+#float-always-on-top-button.active,
+#float-pip-button.active {
+  opacity: 1;
+  color: royalblue;
+}
+
+.dark-mode #float-always-on-top-button.active,
+.dark-mode #float-pip-button.active {
+  color: dodgerblue;
+}
+
+/* Active button hover - slightly brighter */
+#float-always-on-top-button.active:hover,
+#float-pip-button.active:hover {
+  opacity: 1;
+}
+
+body.windows #float-always-on-top-button.active:hover,
+body.windows #float-pip-button.active:hover {
+  background-color: rgba(65, 105, 225, 0.1);
+}
+
+body.windows.dark-theme #float-always-on-top-button.active:hover,
+body.windows.dark-theme #float-pip-button.active:hover {
+  background: rgba(30, 144, 255, 0.15);
+}
+
+/* Button focus states for accessibility */
+#float-always-on-top-button:focus,
+#float-pip-button:focus {
+  outline: 2px solid rgb(0, 117, 255);
+  outline-offset: 2px;
+}
+
+.dark-mode #float-always-on-top-button:focus,
+.dark-mode #float-pip-button:focus {
+  outline-color: transparent;
+}
+
+/* Focus visible (keyboard navigation) */
+#float-always-on-top-button:focus-visible,
+#float-pip-button:focus-visible {
+  outline: 2px solid rgb(0, 117, 255);
+  outline-offset: 2px;
+  background-color: rgba(0, 117, 255, 0.05);
+}
+
+.dark-mode #float-always-on-top-button:focus-visible,
+.dark-mode #float-pip-button:focus-visible {
+  outline: 2px solid dodgerblue;
+  background-color: rgba(30, 144, 255, 0.1);
+}
+
+/* Disabled state (if needed in future) */
+#float-always-on-top-button:disabled,
+#float-pip-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Responsive design - Medium screens (tablets, small windows) */
+@media (max-width: 800px) {
+  #float-controls {
+    gap: 0.375rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+
+  #float-opacity-slider {
+    width: 70px;
+  }
+
+  .float-opacity-label {
+    font-size: 12px;
+    min-width: 38px;
+  }
+}
+
+/* Responsive design - Small screens (mobile-sized windows) */
+@media (max-width: 600px) {
+  #float-controls {
+    gap: 0.25rem;
+    margin-left: 0.125rem;
+    margin-right: 0.125rem;
+  }
+
+  #float-opacity-slider {
+    width: 60px;
+  }
+
+  .float-opacity-label {
+    font-size: 11px;
+    min-width: 35px;
+  }
+
+  #float-always-on-top-button,
+  #float-pip-button {
+    padding: 0 0.5rem;
+    font-size: 1.3em !important;
+  }
+}
+
+/* PIP mode adjustments - compact layout for 400x300 window */
+@media (max-width: 450px) {
+  #float-controls {
+    gap: 0.125rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .float-opacity-control {
+    gap: 0.125rem;
+  }
+
+  #float-opacity-slider {
+    width: 50px;
+  }
+
+  .float-opacity-label {
+    display: none;
+  }
+
+  #float-always-on-top-button,
+  #float-pip-button {
+    padding: 0 0.375rem;
+    font-size: 1.2em !important;
+  }
+}
+
+/* Extra small - minimal PIP mode (exactly 400px width) */
+@media (max-width: 400px) {
+  #float-controls {
+    gap: 0;
+  }
+
+  #float-opacity-slider {
+    width: 45px;
+  }
+
+  #float-always-on-top-button,
+  #float-pip-button {
+    padding: 0 0.25rem;
+    font-size: 1.1em !important;
+  }
+}
+
+/* Height-based responsive adjustments for PIP mode */
+@media (max-height: 350px) {
+  #float-controls {
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+}
+
+/* Ensure controls remain visible and functional at minimum PIP size (400x300) */
+@media (max-width: 400px) and (max-height: 300px) {
+  #float-controls {
+    gap: 0;
+    margin: 0;
+  }
+
+  #float-opacity-slider {
+    width: 40px;
+    height: 3px;
+  }
+
+  #float-opacity-slider::-webkit-slider-thumb {
+    width: 12px;
+    height: 12px;
+  }
+
+  #float-opacity-slider:hover::-webkit-slider-thumb {
+    width: 13px;
+    height: 13px;
+  }
+
+  #float-opacity-slider:active::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+  }
+
+  #float-opacity-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+  }
+
+  #float-opacity-slider:hover::-moz-range-thumb {
+    width: 13px;
+    height: 13px;
+  }
+
+  #float-opacity-slider:active::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+  }
+
+  #float-always-on-top-button,
+  #float-pip-button {
+    padding: 0 0.2rem;
+    font-size: 1em !important;
+    height: 32px;
+  }
+}

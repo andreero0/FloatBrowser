@@ -10,6 +10,7 @@ var PDFViewer = require('pdfViewer.js')
 var tabEditor = require('navbar/tabEditor.js')
 var readerView = require('readerView.js')
 var taskOverlay = require('taskOverlay/taskOverlay.js')
+var floatControls = require('float/floatControls.js')
 
 module.exports = {
   initialize: function () {
@@ -141,6 +142,14 @@ module.exports = {
 
     ipc.on('goForward', function () {
       webviews.callAsync(tabs.getSelected(), 'goForward')
+    })
+
+    // Float menu state change handler
+    ipc.on('float:state-changed', function (e, state) {
+      // Update Float controls UI to reflect state changes from menu
+      if (floatControls && floatControls.updateState) {
+        floatControls.updateState(state)
+      }
     })
   }
 }

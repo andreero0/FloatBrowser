@@ -66,6 +66,8 @@ module.exports = function (platform, extraOptions) {
   }
 
   const options = {
+    appId: 'com.floatbrowser.app',
+    productName: 'Float Browser',
     files: [
       '**/*',
       '!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}',
@@ -105,8 +107,13 @@ module.exports = function (platform, extraOptions) {
       icon: 'icons/icon.icns',
       target: 'dir',
       darkModeSupport: true,
+      hardenedRuntime: true,
+      gatekeeperAssess: false,
+      entitlements: 'resources/entitlements.mac.plist',
+      entitlementsInherit: 'resources/entitlements.mac.plist',
+      x64ArchFiles: 'Contents/Resources/app/node_modules/fsevents/fsevents.node',
       extendInfo: {
-        NSHumanReadableCopyright: null,
+        NSHumanReadableCopyright: 'Copyright © 2024 Float Browser',
         CFBundleDocumentTypes: [
           {
             CFBundleTypeName: 'HTML document',
@@ -122,6 +129,27 @@ module.exports = function (platform, extraOptions) {
         NSUserActivityTypes: ['NSUserActivityTypeBrowsingWeb'], // macOS handoff support
         LSFileQuarantineEnabled: true // https://github.com/minbrowser/min/issues/2073
         // need to revisit if implementing autoupdate, see https://github.com/brave/browser-laptop/issues/13817
+      }
+    },
+    dmg: {
+      contents: [
+        {
+          x: 130,
+          y: 220
+        },
+        {
+          x: 410,
+          y: 220,
+          type: 'link',
+          path: '/Applications'
+        }
+      ],
+      title: 'Float Browser ${version}',
+      icon: 'icons/icon.icns',
+      background: null,
+      window: {
+        width: 540,
+        height: 380
       }
     },
     directories: {

@@ -67,6 +67,9 @@ var userDataPath = app.getPath('userData')
 
 settings.initialize(userDataPath)
 
+// Initialize Float settings
+var floatSettings = new FloatSettings(userDataPath)
+
 if (settings.get('userSelectedLanguage')) {
   app.commandLine.appendSwitch('lang', settings.get('userSelectedLanguage'))
 }
@@ -190,6 +193,9 @@ function createWindow (customArgs = {}) {
 }
 
 function createWindowWithBounds (bounds, customArgs) {
+  // Load initial opacity from Float settings
+  const initialOpacity = floatSettings.get('opacity', 0.95)
+  
   const newWin = new BaseWindow({
     width: bounds.width,
     height: bounds.height,
@@ -202,7 +208,10 @@ function createWindowWithBounds (bounds, customArgs) {
     icon: __dirname + '/icons/icon256.png',
     frame: settings.get('useSeparateTitlebar'),
     alwaysOnTop: settings.get('windowAlwaysOnTop'),
-    backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
+    // Note: transparent: true conflicts with setOpacity() on macOS
+    // Using opacity directly instead for Float features
+    backgroundColor: '#ffffff', // White background (will be affected by opacity)
+    opacity: initialOpacity // Set initial opacity from Float settings
   })
 
   // windows and linux always use a menu button in the upper-left corner instead
@@ -345,7 +354,21 @@ function createWindowWithBounds (bounds, customArgs) {
 
   newWin.setTouchBar(buildTouchBar())
 
+  // Initialize Float Window Manager
+  const floatManager = new FloatWindowManager(newWin)
+  floatManager.restoreState(floatSettings)
+  
+  // Store floatManager reference on the window for later access
   windows.addWindow(newWin)
+  windows.getState(newWin).floatManager = floatManager
+  
+  // Initialize Float Profiles
+  const floatProfiles = new FloatProfiles(floatManager, floatSettings)
+  windows.getState(newWin).floatProfiles = floatProfiles
+  
+  // Initialize Float Shortcuts (will be registered after app is ready)
+  const floatShortcuts = new FloatShortcuts(floatManager, newWin, floatSettings, floatProfiles)
+  windows.getState(newWin).floatShortcuts = floatShortcuts
 
   return newWin
 }
@@ -383,6 +406,17 @@ app.on('ready', function () {
   mainMenu = buildAppMenu()
   Menu.setApplicationMenu(mainMenu)
   createDockMenu()
+  
+  // Register Float shortcuts after app is ready
+  const floatShortcuts = windows.getState(newWin).floatShortcuts
+  if (floatShortcuts) {
+    floatShortcuts.registerShortcuts()
+  }
+
+  // Check and show Float welcome screen if first launch
+  if (typeof FloatWelcome !== 'undefined') {
+    FloatWelcome.checkAndShowWelcome(newWin, floatSettings)
+  }
 })
 
 app.on('open-url', function (e, url) {
@@ -428,6 +462,28 @@ app.on('activate', function (/* e, hasVisibleWindows */) {
   }
 })
 
+// Save Float state before quitting
+app.on('before-quit', function () {
+  const currentWindow = windows.getCurrent()
+  if (currentWindow) {
+    const floatManager = windows.getState(currentWindow).floatManager
+    if (floatManager) {
+      floatManager.saveState(floatSettings)
+    }
+  }
+})
+
+// Unregister Float shortcuts when quitting
+app.on('will-quit', function () {
+  // Unregister shortcuts for all windows
+  windows.getAll().forEach(function (window) {
+    const floatShortcuts = windows.getState(window).floatShortcuts
+    if (floatShortcuts) {
+      floatShortcuts.unregisterShortcuts()
+    }
+  })
+})
+
 ipc.on('focusMainWebContents', function () {
   getWindowWebContents(windows.getCurrent()).focus()
 })
@@ -452,6 +508,198 @@ ipc.on('handoffUpdate', function(e, data) {
 
 ipc.on('quit', function () {
   app.quit()
+})
+
+// Float IPC handlers
+ipc.handle('float:set-opacity', function (event, opacity) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatManager) {
+      const success = state.floatManager.setOpacity(opacity)
+      if (success) {
+        floatSettings.set('opacity', opacity)
+        floatSettings.save()
+      }
+      return success
+    }
+  }
+  return false
+})
+
+ipc.handle('float:get-opacity', function (event) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatManager) {
+      return state.floatManager.getOpacity()
+    }
+  }
+  return 1.0
+})
+
+ipc.handle('float:set-always-on-top', function (event, enabled) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatManager) {
+      const success = state.floatManager.setAlwaysOnTop(enabled)
+      if (success) {
+        floatSettings.set('alwaysOnTop', enabled)
+        floatSettings.save()
+      }
+      return success
+    }
+  }
+  return false
+})
+
+ipc.handle('float:get-always-on-top', function (event) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatManager) {
+      return state.floatManager.isAlwaysOnTop()
+    }
+  }
+  return false
+})
+
+ipc.handle('float:toggle-pip', function (event) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    const floatManager = state ? state.floatManager : null
+    if (floatManager) {
+      const newState = floatManager.togglePIPMode()
+      floatManager.saveState(floatSettings)
+      return newState
+    }
+  }
+  return false
+})
+
+ipc.handle('float:get-pip-state', function (event) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatManager) {
+      return state.floatManager.isPIPMode()
+    }
+  }
+  return false
+})
+
+// Float Profile IPC handlers
+ipc.handle('float:get-profiles', function (event) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatProfiles) {
+      return state.floatProfiles.getProfiles()
+    }
+  }
+  return {}
+})
+
+ipc.handle('float:apply-profile', function (event, profileName) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatProfiles) {
+      const success = state.floatProfiles.applyProfile(profileName)
+      if (success) {
+        // Save settings after applying profile
+        floatSettings.save()
+      }
+      return success
+    }
+  }
+  return false
+})
+
+ipc.handle('float:create-profile', function (event, name, config) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatProfiles) {
+      return state.floatProfiles.createProfile(name, config)
+    }
+  }
+  return false
+})
+
+ipc.handle('float:update-profile', function (event, name, config) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatProfiles) {
+      return state.floatProfiles.updateProfile(name, config)
+    }
+  }
+  return false
+})
+
+ipc.handle('float:delete-profile', function (event, name) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatProfiles) {
+      return state.floatProfiles.deleteProfile(name)
+    }
+  }
+  return false
+})
+
+// Float Settings Dialog handlers
+ipc.handle('openFloatShortcutsDialog', function (event) {
+  // Show current shortcuts in a dialog
+  const shortcuts = floatSettings.get('globalShortcuts', {
+    toggleVisibility: 'CommandOrControl+Shift+F',
+    toggleAlwaysOnTop: 'CommandOrControl+Shift+A',
+    togglePIP: 'CommandOrControl+Shift+P'
+  })
+  
+  dialog.showMessageBox(windows.windowFromContents(event.sender).win, {
+    type: 'info',
+    title: 'Float Shortcuts',
+    message: 'Global Keyboard Shortcuts',
+    detail: `Toggle Visibility: ${shortcuts.toggleVisibility}\nToggle Always-on-Top: ${shortcuts.toggleAlwaysOnTop}\nToggle PIP Mode: ${shortcuts.togglePIP}\n\nNote: Shortcut customization will be available in a future update.`,
+    buttons: ['OK']
+  })
+})
+
+ipc.handle('openFloatProfilesDialog', function (event) {
+  const windowObj = windows.windowFromContents(event.sender)
+  if (windowObj) {
+    const state = windows.getState(windowObj.win)
+    if (state && state.floatProfiles) {
+      const profiles = state.floatProfiles.getProfiles()
+      const profileList = Object.keys(profiles).map(key => {
+        const p = profiles[key]
+        return `${p.name}: ${p.width}x${p.height}, ${Math.round(p.opacity * 100)}% opacity`
+      }).join('\n')
+      
+      dialog.showMessageBox(windowObj.win, {
+        type: 'info',
+        title: 'Window Profiles',
+        message: 'Available Window Profiles',
+        detail: `${profileList}\n\nUse Cmd+1, Cmd+2, Cmd+3 to quickly switch between profiles.\n\nNote: Profile editing will be available in a future update.`,
+        buttons: ['OK']
+      })
+    }
+  }
+})
+
+// Settings IPC handlers for welcome screen
+ipc.handle('get-setting', function (event, key) {
+  return floatSettings.get(key)
+})
+
+ipc.handle('set-setting', function (event, key, value) {
+  floatSettings.set(key, value)
+  floatSettings.save()
+  return true
 })
 
 ipc.on('tab-state-change', function(e, events) {

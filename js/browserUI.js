@@ -11,6 +11,9 @@ var tabBar = require('navbar/tabBar.js')
 var tabEditor = require('navbar/tabEditor.js')
 var searchbar = require('searchbar/searchbar.js')
 
+// Float Browser integration
+var FloatControls = require('float/floatControls.js')
+
 /* creates a new task */
 
 function addTask () {

@@ -7,3 +7,8 @@ main.build.js
 .DS_Store
 package-lock.json
 yarn.lock
+
+# Environment variables (contains sensitive credentials)
+.env
+.env.local
+.env.*.local

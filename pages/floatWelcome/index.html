@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to Float Browser</title>
+    <link rel="stylesheet" href="../pagebase.css" />
+    <link rel="stylesheet" href="welcome.css" />
+  </head>
+  <body>
+    <div id="welcome-container">
+      <div class="welcome-header">
+        <h1>Welcome to Float Browser</h1>
+        <p class="welcome-subtitle">
+          A transparent, always-on-top browser for macOS
+        </p>
+      </div>
+
+      <div class="welcome-content">
+        <section class="feature-section">
+          <div class="feature-icon">🎨</div>
+          <h2>Window Transparency</h2>
+          <p>
+            Adjust opacity from 30% to 100% with the slider in the toolbar. See
+            content behind your browser while browsing.
+          </p>
+          <div class="shortcut-hint">
+            Use the <strong>Float menu → Opacity</strong> for quick presets
+          </div>
+        </section>
+
+        <section class="feature-section">
+          <div class="feature-icon">📌</div>
+          <h2>Always-On-Top</h2>
+          <p>
+            Keep Float Browser above all other windows, even when working in
+            other applications. Perfect for reference material.
+          </p>
+          <div class="shortcut-hint">
+            Press <kbd>Cmd+Shift+A</kbd> to toggle
+          </div>
+        </section>
+
+        <section class="feature-section">
+          <div class="feature-icon">⤢</div>
+          <h2>Picture-in-Picture Mode</h2>
+          <p>
+            Compact window mode (400×300) for minimal screen footprint. Great
+            for videos and monitoring.
+          </p>
+          <div class="shortcut-hint">
+            Press <kbd>Cmd+Shift+P</kbd> to toggle
+          </div>
+        </section>
+
+        <section class="feature-section">
+          <div class="feature-icon">📐</div>
+          <h2>Window Profiles</h2>
+          <p>
+            Save and quickly switch between window size presets. Three profiles
+            included: Small, Medium, and Large.
+          </p>
+          <div class="shortcut-hint">
+            Press <kbd>Cmd+1/2/3</kbd> to apply profiles
+          </div>
+        </section>
+
+        <section class="feature-section">
+          <div class="feature-icon">⌨️</div>
+          <h2>Global Shortcuts</h2>
+          <p>
+            Control Float Browser from any application with system-wide keyboard
+            shortcuts.
+          </p>
+          <div class="shortcut-hint">
+            Press <kbd>Cmd+Shift+F</kbd> to toggle visibility
+          </div>
+        </section>
+
+        <section class="shortcuts-section">
+          <h2>Essential Shortcuts</h2>
+          <div class="shortcuts-grid">
+            <div class="shortcut-item">
+              <kbd>Cmd+Shift+F</kbd>
+              <span>Toggle visibility</span>
+            </div>
+            <div class="shortcut-item">
+              <kbd>Cmd+Shift+A</kbd>
+              <span>Toggle always-on-top</span>
+            </div>
+            <div class="shortcut-item">
+              <kbd>Cmd+Shift+P</kbd>
+              <span>Toggle PIP mode</span>
+            </div>
+            <div class="shortcut-item">
+              <kbd>Cmd+1/2/3</kbd>
+              <span>Window profiles</span>
+            </div>
+            <div class="shortcut-item">
+              <kbd>Cmd+L</kbd>
+              <span>Focus address bar</span>
+            </div>
+            <div class="shortcut-item">
+              <kbd>Cmd+T</kbd>
+              <span>New tab</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="info-section">
+          <h2>Built on Min Browser</h2>
+          <p>
+            Float Browser includes all the features of
+            <a
+              href="https://github.com/minbrowser/min"
+              target="_blank"
+              rel="noopener"
+              >Min Browser</a
+            >: full-text search, ad blocking, reader view, tasks, bookmarks, and
+            more.
+          </p>
+        </section>
+
+        <section class="resources-section">
+          <h2>Learn More</h2>
+          <div class="resources-grid">
+            <a href="#" id="user-guide-link" class="resource-link">
+              📖 User Guide
+            </a>
+            <a href="#" id="shortcuts-link" class="resource-link">
+              ⌨️ Keyboard Shortcuts
+            </a>
+            <a href="#" id="troubleshooting-link" class="resource-link">
+              🔧 Troubleshooting
+            </a>
+            <a href="#" id="settings-link" class="resource-link">
+              ⚙️ Settings
+            </a>
+          </div>
+        </section>
+      </div>
+
+      <div class="welcome-footer">
+        <label class="checkbox-container">
+          <input type="checkbox" id="dont-show-again" />
+          <span>Don't show this again</span>
+        </label>
+        <button id="get-started-button" class="primary-button">
+          Get Started
+        </button>
+      </div>
+    </div>
+
+    <script src="welcome.js"></script>
+  </body>
+</html>

@@ -1,0 +1,242 @@
+# Float Browser v2.0 - Design Document
+
+## Overview
+
+Float Browser v2.0 is built by **enhancing Min Browser** with window management features. The design follows an **additive approach** - we add Float-specific functionality to Min Browser without modifying its core architecture.
+
+**Base Platform**: Min Browser v1.35.2 (or latest stable)  
+**Target Location**: `/Users/aero/float-browser-min`  
+**Architecture Pattern**: Layered enhancement over Min Browser  
+**Integration Strategy**: Additive modules with minimal core modifications
+
+## Critical Design Principle: UI Consistency
+
+**IMPORTANT**: All Float features MUST be fully integrated into Min's existing UI. Float controls should look and feel like they were always part of Min Browser.
+
+### UI Integration Rules
+
+1. **Use Min's CSS Classes**: Float controls use Min's existing CSS classes, not custom ones
+2. **Match Min's Visual Style**: Colors, spacing, fonts, icons must match Min exactly
+3. **Follow Min's Patterns**: Use Min's helper functions for creating UI elements
+4. **Consistent Interactions**: Hover effects, click behaviors, animations match Min
+5. **No Disconnected UI**: Float features appear in Min's toolbar, menus, and settings
+
+**Implementation Approach**: Study Min's code first, then reuse Min's functions to create Float UI.
+
+---
+
+## Architecture
+
+### Module Structure
+
+All Float-specific code in dedicated directories:
+
+```
+js/float/
+├── floatWindowManager.js    # Window management (transparency, always-on-top, PIP)
+├── floatControls.js          # UI controls
+├── floatSettings.js          # Settings management
+├── floatShortcuts.js         # Global keyboard shortcuts
+├── floatProfiles.js          # Window size profiles
+└── floatMenu.js              # Menu integration
+
+css/float/
+├── floatControls.css         # Control styles
+└── floatIntegration.css      # Integration styles
+```
+
+### Key Components
+
+#### 1. FloatWindowManager
+- Manages window opacity (0.3 to 1.0)
+- Manages always-on-top behavior
+- Manages PIP mode (400x300 toggle)
+- Persists window state
+
+#### 2. FloatControls
+- Opacity slider in toolbar (matches Min's style)
+- Always-on-top toggle button (matches Min's buttons)
+- PIP mode toggle button (matches Min's buttons)
+- Integrated into Min's navbar
+
+#### 3. FloatSettings
+- Stores Float configuration
+- Default opacity, always-on-top state
+- Window profiles
+- Global shortcuts configuration
+
+#### 4. FloatShortcuts
+- Cmd+Shift+F: Toggle visibility
+- Cmd+Shift+A: Toggle always-on-top
+- Cmd+Shift+P: Toggle PIP mode
+- Cmd+1/2/3: Apply window profiles
+
+#### 5. FloatProfiles
+- Predefined: Small (400x300), Medium (800x600), Large (1200x800)
+- Custom profiles with size, opacity, always-on-top
+- Quick switching via keyboard or menu
+
+#### 6. FloatMenu
+- "Float" menu in menu bar
+- Opacity presets submenu
+- Window profiles submenu
+- Keyboard shortcuts displayed
+
+---
+
+## Integration Points
+
+### Main Process (`main/main.js`)
+
+```javascript
+// Import Float modules
+const FloatWindowManager = require('../js/float/floatWindowManager');
+const FloatShortcuts = require('../js/float/floatShortcuts');
+
+// Enhance window creation
+const mainWindow = new BrowserWindow({
+  // ... Min's config ...
+  transparent: true,
+  opacity: 0.95,
+  backgroundColor: '#00000000'
+});
+
+// Initialize Float features
+const floatManager = new FloatWindowManager(mainWindow);
+floatManager.restoreState();
+
+const floatShortcuts = new FloatShortcuts(floatManager);
+floatShortcuts.registerShortcuts();
+
+// Add IPC handlers
+ipcMain.handle('float:set-opacity', (event, opacity) => {
+  floatManager.setOpacity(opacity);
+});
+// ... more handlers ...
+```
+
+### Renderer Process (`js/browserUI.js`)
+
+```javascript
+// Import Float controls
+const FloatControls = require('./float/floatControls');
+
+// Initialize after Min's UI
+function initialize() {
+  // ... Min's initialization ...
+  
+  // Initialize Float controls
+  const floatControls = new FloatControls();
+  floatControls.initialize();
+}
+```
+
+### HTML (`pages/index.html`)
+
+```html
+<!-- Add Float CSS -->
+<link rel="stylesheet" href="../css/float/floatControls.css">
+```
+
+---
+
+## Files to Modify
+
+### Create (NEW)
+- `js/float/*.js` - All Float modules
+- `css/float/*.css` - Float styles
+
+### Modify (EXISTING Min files)
+- `main/main.js` - Window creation, IPC handlers
+- `js/browserUI.js` - Initialize Float controls
+- `js/settings.js` - Add Float settings section
+- `pages/index.html` - Add Float CSS
+- `js/menuRenderer.js` - Add Float menu
+
+### Do NOT Modify
+- Min's tab management
+- Min's bookmark system
+- Min's history system
+- Min's core rendering
+
+---
+
+## Data Flow Examples
+
+### Opacity Change
+```
+User moves slider
+  → FloatControls.onOpacityChange()
+  → IPC: 'float:set-opacity'
+  → FloatWindowManager.setOpacity()
+  → BrowserWindow.setOpacity()
+  → FloatSettings.save()
+```
+
+### Always-On-Top Toggle
+```
+User clicks button
+  → FloatControls.onAlwaysOnTopClick()
+  → IPC: 'float:set-always-on-top'
+  → FloatWindowManager.setAlwaysOnTop()
+  → BrowserWindow.setAlwaysOnTop()
+  → Update UI button state
+```
+
+---
+
+## Error Handling
+
+- Opacity failures: Revert to previous value
+- Settings corruption: Reset to defaults
+- Shortcut conflicts: Continue without shortcut
+- Window management errors: Log and notify user
+
+---
+
+## Performance
+
+- Opacity changes: < 50ms
+- Memory overhead: < 10% vs Min
+- Startup time: < 500ms vs Min
+- Throttle slider updates to 60fps
+
+---
+
+## Testing
+
+- Unit tests for all Float modules
+- Integration tests with Min Browser
+- Manual testing on macOS 10.13+
+- Test on Intel and Apple Silicon
+- Performance benchmarks
+
+---
+
+## Build & Distribution
+
+- Universal binary (x64 + ARM64)
+- Code signing with Apple Developer certificate
+- Notarization for Gatekeeper
+- DMG installer
+- Test on clean macOS installation
+
+---
+
+## Maintenance
+
+- Keep Float code isolated in `js/float/` and `css/float/`
+- Document all Min modifications in `FLOAT_MODIFICATIONS.md`
+- Use git branches for Min upstream updates
+- Test after pulling Min updates
+
+---
+
+## Summary
+
+Float Browser v2.0 = Min Browser + Window Management
+
+- **Additive**: Float features in separate modules
+- **Integrated**: Float UI matches Min's style exactly
+- **Maintainable**: Can pull Min updates easily
+- **Professional**: Users can't tell Float wasn't always part of Min

@@ -676,3 +676,71 @@ function createBang (bang, snippet, redirect) {
 
   return li
 }
+
+/* Float Browser settings */
+
+var floatDefaultOpacitySlider = document.getElementById('float-default-opacity')
+var floatDefaultOpacityValue = document.getElementById('float-default-opacity-value')
+var floatDefaultAlwaysOnTopCheckbox = document.getElementById('checkbox-float-default-always-on-top')
+var floatConfigureShortcutsButton = document.getElementById('float-configure-shortcuts')
+var floatManageProfilesButton = document.getElementById('float-manage-profiles')
+
+/* Default opacity setting */
+
+settings.get('float', function (floatSettings) {
+  if (floatSettings && floatSettings.defaultOpacity !== undefined) {
+    var opacityPercent = Math.round(floatSettings.defaultOpacity * 100)
+    floatDefaultOpacitySlider.value = opacityPercent
+    floatDefaultOpacityValue.textContent = opacityPercent + '%'
+  } else {
+    // Default to 95%
+    floatDefaultOpacitySlider.value = 95
+    floatDefaultOpacityValue.textContent = '95%'
+  }
+})
+
+floatDefaultOpacitySlider.addEventListener('input', function (e) {
+  var opacityPercent = parseInt(this.value)
+  floatDefaultOpacityValue.textContent = opacityPercent + '%'
+  
+  settings.get('float', function (floatSettings) {
+    if (!floatSettings) {
+      floatSettings = {}
+    }
+    floatSettings.defaultOpacity = opacityPercent / 100
+    settings.set('float', floatSettings)
+  })
+})
+
+/* Default always-on-top setting */
+
+settings.get('float', function (floatSettings) {
+  if (floatSettings && floatSettings.defaultAlwaysOnTop !== undefined) {
+    floatDefaultAlwaysOnTopCheckbox.checked = floatSettings.defaultAlwaysOnTop
+  } else {
+    // Default to true
+    floatDefaultAlwaysOnTopCheckbox.checked = true
+  }
+})
+
+floatDefaultAlwaysOnTopCheckbox.addEventListener('change', function (e) {
+  settings.get('float', function (floatSettings) {
+    if (!floatSettings) {
+      floatSettings = {}
+    }
+    floatSettings.defaultAlwaysOnTop = floatDefaultAlwaysOnTopCheckbox.checked
+    settings.set('float', floatSettings)
+  })
+})
+
+/* Configure shortcuts button */
+
+floatConfigureShortcutsButton.addEventListener('click', function () {
+  postMessage({ message: 'openFloatShortcutsDialog' })
+})
+
+/* Manage profiles button */
+
+floatManageProfilesButton.addEventListener('click', function () {
+  postMessage({ message: 'openFloatProfilesDialog' })
+})

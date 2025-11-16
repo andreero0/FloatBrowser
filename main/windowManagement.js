@@ -18,13 +18,13 @@ const windows = {
       windows.getState(window).lastFocused = Date.now()
     })
 
-    window.on('close', function() {
+    window.on('close', function () {
       // detach WebContentsViews to ensure they aren't destroyed when the window is closed
       window.getContentView().children.slice(1).forEach(child => window.getContentView().removeChildView(child))
       windows.openWindows.find(w => w.win === window).closed = true
     })
 
-    window.on('closed', function() {
+    window.on('closed', function () {
       windows.removeWindow(window)
 
       // Quit on last window closed (ignoring secondary and hidden windows)
@@ -32,13 +32,13 @@ const windows = {
         app.quit()
       }
     })
-  
+
     windows.nextId++
   },
   removeWindow: function (window) {
     windows.openWindows.splice(windows.openWindows.findIndex(w => w.win === window), 1)
 
-    //unload WebContentsViews when all windows are closed
+    // unload WebContentsViews when all windows are closed
     if (windows.openWindows.length === 0) {
       destroyAllViews()
     }
@@ -55,6 +55,7 @@ const windows = {
     return windows.openWindows.filter(w => !w.closed).map(w => w.win)
   },
   getState: function (window) {
-    return windows.openWindows.find(w => w.win === window).state
+    const windowObj = windows.openWindows.find(w => w.win === window)
+    return windowObj ? windowObj.state : null
   }
 }

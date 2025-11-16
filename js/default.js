@@ -168,6 +168,9 @@ require('bookmarkConverter.js').initialize()
 require('newTabPage.js').initialize()
 require('macHandoff.js').initialize()
 
+// Float Browser modules
+// Note: Float settings dialogs are handled via IPC in main process
+
 // default searchbar plugins
 
 require('searchbar/placesPlugin.js').initialize()
@@ -183,6 +186,19 @@ require('searchbar/historyViewer.js').initialize()
 require('searchbar/developmentModeNotification.js').initialize()
 require('searchbar/shortcutButtons.js').initialize()
 require('searchbar/calculatorPlugin.js').initialize()
+
+// Float Browser integration - initialize after Min's UI is ready
+try {
+  console.log('Loading FloatControls module...')
+  var FloatControls = require('float/floatControls.js')
+  console.log('FloatControls module loaded, creating instance...')
+  var floatControls = new FloatControls()
+  console.log('FloatControls instance created, initializing...')
+  floatControls.initialize()
+  console.log('FloatControls initialized successfully')
+} catch (error) {
+  console.error('Failed to initialize FloatControls:', error)
+}
 
 // once everything's loaded, start the session
 require('sessionRestore.js').restore()
