@@ -2,6 +2,8 @@
 
 This directory contains unit and integration tests for the Float Browser modules.
 
+**For testing documentation and guides, see [docs/testing/](../docs/testing/).**
+
 ## Test Files
 
 ### Unit Tests
