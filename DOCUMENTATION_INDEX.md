@@ -20,6 +20,7 @@ Quick navigation to all Float Browser documentation.
 - [Developer Overview](docs/developer/README.md) - Developer docs index
 - [Architecture](docs/developer/ARCHITECTURE.md) - System architecture and design
 - [Build Guide](docs/developer/BUILD_GUIDE.md) - Building for all platforms
+- [Build Configuration](docs/developer/BUILD_CONFIGURATION.md) - Build configuration summary
 - [Code Signing Guide](docs/developer/CODE_SIGNING_GUIDE.md) - macOS signing and notarization
 - [Modifications](docs/developer/MODIFICATIONS.md) - Float-specific code changes
 - [Min Update Guide](docs/developer/MIN_UPDATE_GUIDE.md) - Syncing with upstream Min
@@ -58,6 +59,9 @@ Quick navigation to all Float Browser documentation.
 - [Task 26 Summary](docs/archive/TASK_26_COMPLETION_SUMMARY.md) - Testing and bug fixes
 - [Task 27.2 Summary](docs/archive/TASK_27.2_COMPLETION_SUMMARY.md) - Final polish
 - [Float Browser Spec Summary](docs/archive/FLOAT_BROWSER_SPEC_SUMMARY.md) - Original spec overview
+- [Release Announcement](docs/archive/RELEASE_ANNOUNCEMENT.md) - v2.0.0 release announcement
+- [Announcement Media Guide](docs/archive/ANNOUNCEMENT_MEDIA_GUIDE.md) - Media creation guide
+- [Social Media Posts](docs/archive/SOCIAL_MEDIA_POSTS.md) - Social media content
 
 ## Spec Files
 
