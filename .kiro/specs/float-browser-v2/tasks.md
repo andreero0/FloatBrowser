@@ -604,7 +604,7 @@ Implementation plan for adding Float features to Min Browser at `/Users/aero/flo
   - Final installation test
   - _Requirements: 14.1, 14.2, 14.3_
 
-- [ ] 27.3 Prepare announcement
+- [x] 27.3 Prepare announcement
   - Release announcement
   - Screenshots and demo video
   - Social media posts
