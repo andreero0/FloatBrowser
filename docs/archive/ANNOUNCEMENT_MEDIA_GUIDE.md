@@ -1,3 +1,12 @@
+---
+**[📚 Documentation Index](../../DOCUMENTATION_INDEX.md)** | **[📦 Archive Overview](README.md)** | **[📝 Changelog](CHANGELOG.md)**
+
+---
+
+> **Note**: This document has been archived as it contains historical information about the v2.0.0 release announcement. It has been preserved for reference.
+
+---
+
 # Float Browser v2.0.0 - Media Guide for Announcement
 
 This guide provides detailed instructions for creating screenshots, demo videos, and other media assets for the Float Browser v2.0.0 announcement.

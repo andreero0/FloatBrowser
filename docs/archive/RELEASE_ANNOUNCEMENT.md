@@ -1,3 +1,12 @@
+---
+**[📚 Documentation Index](../../DOCUMENTATION_INDEX.md)** | **[📦 Archive Overview](README.md)** | **[📝 Changelog](CHANGELOG.md)**
+
+---
+
+> **Note**: This document has been archived as it contains historical information about the v2.0.0 release announcement. It has been preserved for reference.
+
+---
+
 # Float Browser v2.0.0 - Official Release Announcement
 
 **Release Date:** November 16, 2024

@@ -1,3 +1,8 @@
+---
+**[📚 Documentation Index](../../DOCUMENTATION_INDEX.md)** | **[👤 User Docs](../user/)** | **[🔧 Developer Docs](README.md)** | **[🧪 Testing](../testing/README.md)** | **[🚀 Release](../release/README.md)**
+
+---
+
 # Float Browser Build Configuration Summary
 
 This document summarizes the build configuration changes made for Float Browser v2.0.
