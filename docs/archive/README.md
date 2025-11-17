@@ -21,6 +21,12 @@ Historical documentation and task completion summaries.
 
 - [Float Browser Spec Summary](FLOAT_BROWSER_SPEC_SUMMARY.md) - Original spec overview
 
+## Release Announcements
+
+- [Release Announcement](RELEASE_ANNOUNCEMENT.md) - v2.0.0 release announcement
+- [Announcement Media Guide](ANNOUNCEMENT_MEDIA_GUIDE.md) - Media creation guide for v2.0.0
+- [Social Media Posts](SOCIAL_MEDIA_POSTS.md) - Social media content for v2.0.0
+
 ## Why Archived?
 
 These documents contain valuable historical information but are not needed for current development or usage. They've been preserved for reference.

@@ -31,6 +31,7 @@ Documentation for developers working on Float Browser.
 - [Environment Setup](ENV_SETUP.md) - Dev environment configuration
 - [Linting](LINTING_EXPLANATION.md) - Code style and linting rules
 - [Build Guide](BUILD_GUIDE.md) - Building for all platforms
+- [Build Configuration](BUILD_CONFIGURATION.md) - Build configuration summary
 - [Code Signing](CODE_SIGNING_GUIDE.md) - Signing and notarization
 
 ## Related Documentation
