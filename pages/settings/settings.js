@@ -744,3 +744,20 @@ floatConfigureShortcutsButton.addEventListener('click', function () {
 floatManageProfilesButton.addEventListener('click', function () {
   postMessage({ message: 'openFloatProfilesDialog' })
 })
+
+/* YouTube ad-free setting */
+
+var youtubeAdFreeCheckbox = document.getElementById('checkbox-youtube-ad-free')
+
+settings.get('youtubeAdFree', function (value) {
+  // Default to enabled (true)
+  if (value === undefined || value === true) {
+    youtubeAdFreeCheckbox.checked = true
+  } else {
+    youtubeAdFreeCheckbox.checked = false
+  }
+})
+
+youtubeAdFreeCheckbox.addEventListener('change', function (e) {
+  settings.set('youtubeAdFree', this.checked)
+})

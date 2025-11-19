@@ -1,3 +1,5 @@
+var contentScriptManager = require('./contentScriptManager.js')
+
 var viewMap = {} // id: view
 var viewStateMap = {} // id: view state
 
@@ -237,6 +239,9 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
   view.setBounds(JSON.parse(boundsString))
 
   viewMap[id] = view
+
+  // Setup content script injection for this view
+  contentScriptManager.setupContentScriptInjection(view.webContents)
 
   return view
 }

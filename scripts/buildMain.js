@@ -20,6 +20,7 @@ const modules = [
   'main/main.js',
   'main/minInternalProtocol.js',
   'main/filtering.js',
+  'main/contentScriptManager.js',
   'main/viewManager.js',
   'main/download.js',
   'main/UASwitcher.js',
